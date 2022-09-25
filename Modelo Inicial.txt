@@ -1,0 +1,63 @@
+@startuml
+Class Fornecedor {
+   {field}idForncedor : INT
+   {field}Razão Social : VARCHAR(45)
+   {field}CNPJ : VARCHAR(45)
+}
+Class "Disponibilizando um Produto" {
+   {field}Produto_idProduto : INT
+   {field}Fornecedor_idForncedor : INT
+}
+Class Estoque {
+   {field}idEstoque : INT
+   {field}Local : VARCHAR(45)
+}
+Class "Produto has Estoque" {
+   {field}Produto_idProduto : INT
+   {field}Estoque_idEstoque : INT
+   {field}Quantidade : INT
+}
+Class Pedido {
+   {field}idPedido : INT
+   {field}Status do Pedido : VARCHAR(45)
+   {field}Descrição : VARCHAR(45)
+   {field}Cliente_idCliente : INT
+   {field}Frete : FLOAT
+}
+Class "Relação de Produto/pedido" {
+   {field}Produto_idProduto : INT
+   {field}Pedido_idPedido : INT
+   {field}Quantidade : VARCHAR(45)
+}
+Class "Terceiro - Vendedor" {
+   {field}idVendedor : INT
+   {field}Razão Social : VARCHAR(45)
+   {field}Local : VARCHAR(45)
+}
+Class "Terceiro - Vendedor has Produtos" {
+   {field}Produto_idProduto : INT
+   {field}Terceiro - Vendedor_idTerceiro - Vendedor : INT
+}
+Class Produto {
+   {field}idProduto : INT
+   {field}Categoria : VARCHAR(45)
+   {field}Descrição : VARCHAR(45)
+   {field}Valor : VARCHAR(45)   
+}
+Class Cliente {
+   {field}idCliente : INT
+   {field}Nome : VARCHAR(45)
+   {field}Identificação : VARCHAR(45)
+   {field}Endereço : VARCHAR(45)   
+}
+
+Fornecedor "1 " <|-- "1*" "Disponibilizando um Produto"
+"Disponibilizando um Produto" "1*" --|> "1 " Produto
+Estoque "1 " <|-- "1*" "Produto has Estoque"
+"Produto has Estoque" "1*" --|> "1 " Produto
+Pedido "1 " <|-- "1*" "Relação de Produto/pedido"
+"Relação de Produto/pedido" "1*" --|> "1 " Produto
+"Terceiro - Vendedor" "1 " <|-- "1*" "Terceiro - Vendedor has Produtos"
+"Terceiro - Vendedor has Produtos" "1*" --|> "1 " Produto
+Pedido "1 *" --|> "1" "Cliente"
+@enduml
